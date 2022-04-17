@@ -32,11 +32,4 @@ public class sortfdsa {
         if (low > k) return kth_elem(a, low_temp, low - 1, k);
         return kth_elem(a, low + 1, high_temp, k);
     }
-
-    //荷兰国旗 按红白蓝顺序 思想：红色往前 蓝色往后
-    //i以前为红 k以后为蓝
-    public static void FlagArrange(int[] colors) {
-        int red = -1, white = 0, blue = colors.
-    }
-
 }

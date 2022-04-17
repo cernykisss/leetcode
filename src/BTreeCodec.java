@@ -2,7 +2,12 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class BTreeCodec {
-
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+        TreeNode(int x) {this.val = x;}
+    }
     public String serialize(TreeNode root) {
         if (root == null) return null;
         Queue<TreeNode> queue = new LinkedList<>();
