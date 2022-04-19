@@ -1,53 +1,51 @@
 package sort;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Objects;
+import java.util.List;
 
 public class MergeSort {
 
-    public static void main(String[] args) {
 
+    public static void main(String[] args) {
         int[] a = new int[] {2, 4, 1, 2, 5, 7, -1};
-        merge(a, 0, a.length - 1);
-        HashMap<Object, Object> map1 = Arrays.stream(a)
-                .filter(num -> num > 0)
-                .collect(HashMap::new,
-                        (map, num) -> {
-                            map.put(num, num);
-                        },
-                        HashMap::putAll);
-        String res = "";
-        System.out.println(Arrays.toString(a));
-        System.out.println(map1);
-        int i = "1".compareTo("2");
-        System.out.println("i= " + i);
-        Arrays.stream(a).forEach(num -> {
-            num = num * 10;
-            System.out.println(num);
-        });
+        int[] merge = split(a, 0, a.length - 1);
+        System.out.println(Arrays.toString(merge));
     }
 
-    public static int[] merge(int[] a, int left, int right) {
+    public static int[] split(int[] a, int left, int right) {
         if (left < right) {
             int mid = (left + right) / 2;
-            merge(a, left, mid);
-            merge(a, mid + 1, right);
-            sort(a, left, mid, right);
+            split(a, left, mid);
+            split(a, mid + 1, right);
+            mergeSort(a, left, mid, right);
         }
         return a;
     }
 
-    public static void sort(int[] a, int left, int mid, int right) {
+    public static void mergeSort(int[] a, int left, int mid, int right) {
+//        int[] temp = new int[right - left + 1];
+//        int k = 0;
+//        int l = left, r = mid + 1;
+//        while (l <= mid && r <= right) {
+//            if (a[l] > a[r]) temp[k++] = a[r++];
+//            else temp[k++] = a[l++];
+//        }
+//        while (l <= mid) temp[k++] = a[l++];
+//        while (r <= right) temp[k++] = a[r++];
+//        for (int i = 0; i < temp.length; i++) {
+//            a[left + i] = temp[i];
+//        }
         int[] temp = new int[right - left + 1];
         int k = 0;
         int l = left, r = mid + 1;
         while (l <= mid && r <= right) {
-            if (a[l] > a[r]) temp[k++] = a[r++];
-            else temp[k++] = a[l++];
+            if (a[l] < a[r])
+                temp[k++] = a[l++];
+            else
+                temp[k++] = a[r++];
         }
         while (l <= mid) temp[k++] = a[l++];
-        while (r <= right) temp[k++] = a[r++];
+        while (r <= mid) temp[k++] = a[r++];
         for (int i = 0; i < temp.length; i++) {
             a[left + i] = temp[i];
         }
@@ -56,7 +54,7 @@ public class MergeSort {
     public ListNode sortList(ListNode head) {
         if (head == null || head.next == null) return head;
         ListNode slow = head, fast = head.next;
-        while (fast != null && fast.next != null) {
+        while (fast != null || fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
@@ -66,7 +64,7 @@ public class MergeSort {
 
         ListNode dummy = new ListNode(0);
         ListNode cur = dummy;
-        while (left != null && right != null) {
+        while (left != null || right != null) {
             if (left.val < right.val) {
                 cur.next = left;
                 left = left.next;
@@ -79,4 +77,13 @@ public class MergeSort {
         cur.next = left == null? right: left;
         return dummy.next;
     }
+    
+    class ListNode {
+        int val;
+        ListNode next;
+        public ListNode(int val) {
+            this.val = val;
+        }
+    }
+
 }
