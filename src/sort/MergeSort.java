@@ -8,33 +8,21 @@ public class MergeSort {
 
     public static void main(String[] args) {
         int[] a = new int[] {2, 4, 1, 2, 5, 7, -1};
-        int[] merge = split(a, 0, a.length - 1);
-        System.out.println(Arrays.toString(merge));
+        split(a, 0, a.length - 1);
+        System.out.println(Arrays.toString(a));
     }
 
-    public static int[] split(int[] a, int left, int right) {
+    public static void split(int[] a, int left, int right) {
         if (left < right) {
             int mid = (left + right) / 2;
             split(a, left, mid);
             split(a, mid + 1, right);
             mergeSort(a, left, mid, right);
         }
-        return a;
+//        return a;
     }
 
     public static void mergeSort(int[] a, int left, int mid, int right) {
-//        int[] temp = new int[right - left + 1];
-//        int k = 0;
-//        int l = left, r = mid + 1;
-//        while (l <= mid && r <= right) {
-//            if (a[l] > a[r]) temp[k++] = a[r++];
-//            else temp[k++] = a[l++];
-//        }
-//        while (l <= mid) temp[k++] = a[l++];
-//        while (r <= right) temp[k++] = a[r++];
-//        for (int i = 0; i < temp.length; i++) {
-//            a[left + i] = temp[i];
-//        }
         int[] temp = new int[right - left + 1];
         int k = 0;
         int l = left, r = mid + 1;
@@ -45,7 +33,7 @@ public class MergeSort {
                 temp[k++] = a[r++];
         }
         while (l <= mid) temp[k++] = a[l++];
-        while (r <= mid) temp[k++] = a[r++];
+        while (r <= right) temp[k++] = a[r++];
         for (int i = 0; i < temp.length; i++) {
             a[left + i] = temp[i];
         }
